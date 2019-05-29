@@ -1,0 +1,21 @@
+.mainDisplay{
+    background: rgba(0,0,0,0.8);
+    color: white;
+    height: 100px;
+    border: 1px solid lightslategray;
+    font-size: 60px;
+    font-weight: 100;
+    text-align: right;
+    line-height: 100px;
+    padding-right: 15px;
+}
+
+.leftSide{
+    width: 270px;   
+}
+
+.rightSide{
+    width: 80px;
+    display: flex;
+    flex-direction: column; 
+}
