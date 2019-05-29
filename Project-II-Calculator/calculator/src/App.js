@@ -17,7 +17,6 @@ class App extends React.Component{
     }
     
     getOperator = (operator) => {
-        this.setState({operator});
         let x = parseInt(this.state.firstNumber);
         let y = parseInt(this.state.secondNumber);
         switch(this.state.operator){
@@ -50,6 +49,7 @@ class App extends React.Component{
                 })
                 break;
         } 
+        this.setState({operator});
     }
 
     getNumber = (digit) => {
