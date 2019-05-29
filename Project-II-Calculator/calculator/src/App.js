@@ -9,85 +9,69 @@ class App extends React.Component{
     constructor() {
         super();
         this.state = {
-            total: null,
-            firstNumber: null,
-            secondNumber: null,
+            firstNumber: '',
+            secondNumber: '',
             operator: null,
             display: 0
         };
     }
     
     getOperator = (operator) => {
-        if(this.state.operator ===null)
-            this.setState({operator});
-        else{
-            switch(this.state.operator){
-                case '+':
-                    this.add(this.state.total, this.state.secondNumber);
-                    this.state.operator = null;
-                    break;
-                case '-':
-                    this.subtract(this.state.total, this.state.secondNumber);
-                    this.state.operator = null;
-                    break;
-                case '\xF7':
-                    this.divide(this.state.total, this.state.secondNumber);
-                    this.state.operator = null;
-                    break;
-                case '\xD7' :
-                    this.multiply(this.state.total, this.state.secondNumber);
-                    this.state.operator = null;
-                    break;
-            }
-        }
+        this.setState({operator});
+        let x = parseInt(this.state.firstNumber);
+        let y = parseInt(this.state.secondNumber);
+        switch(this.state.operator){
+            case '+':
+                this.setState({
+                    display: x+y,
+                    firstNumber: x+y,
+                    secondNumber: ""
+                })
+                break;
+            case '-':
+                this.setState({
+                    display: x-y,
+                    firstNumber: x-y,
+                    secondNumber: ""
+                })
+                break;
+            case '\xF7':
+                this.setState({
+                    display: Math.round(100*x/y)/100,
+                    firstNumber: x/y,
+                    secondNumber: ""
+                })
+                break;
+            case '\xD7' :
+                this.setState({
+                    display: x*y,
+                    firstNumber: x*y,
+                    secondNumber: ""
+                })
+                break;
+        } 
     }
 
-    getNumber = (numberGot) => {
-        if(this.state.firstNumber === null){
+    getNumber = (digit) => {
+        if(this.state.operator === null){
+            const temp = this.state.firstNumber + digit;
             this.setState({
-                firstNumber: numberGot,
-                total: numberGot,
-                display: numberGot
+                firstNumber: temp,
+                display: temp
             })
         } else {
+            const temp = this.state.secondNumber + digit;
             this.setState({
-                secondNumber: numberGot,
-                display: numberGot
+                secondNumber: temp,
+                display: temp
             })
         }
     }
 
     getClear = () => {
-        this.setState({total: 0, firstNumber: null, operator: null, secondNumber: null, display: 0})
+        this.setState({firstNumber: '', operator: null, secondNumber: '', display: 0})
     }
 
-    add = (x,y) => {
-        this.setState({
-            total: x+y,
-            display: x+y
-        })
-    }
-
-    subtract = (x,y) => {
-        this.setState({
-            total: x-y,
-            display: x-y
-        })
-    }
-
-    multiply = (x,y) => {
-        this.setState({
-            total: x*y,
-            display: x*y
-        })
-    }
-
-    divide = (x,y) => {
-        this.setState({
-            total: x/y,
-            display: x/y
-        })
-    }
     render(){
         return (
           <div className = 'container'>
